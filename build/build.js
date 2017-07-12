@@ -190,7 +190,7 @@ prompt.get(ciLogin, function (err, result) {
                 var zipped  = '../' + fileName;
                 fs.writeFileSync(deploy + 'config.js', 'var config = ' + JSON.stringify(config) + ';\nmodule.exports = config;');
                 process.chdir('target/ci_lambda_checks');
-                execfile('zip', ['-r', '-X', zipped, './'], function(err, stdout) {
+                execfile('zip', ['-r', '-X', zipped, './'], {maxBuffer: 1024 *1000}, function(err, stdout) {
                     process.chdir('../../');
                     var deploymentSpec = {
                         "accountId": config.accountId,
